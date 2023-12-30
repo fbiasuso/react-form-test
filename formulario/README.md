@@ -1,8 +1,16 @@
-# React + Vite
+# Formulario de Prueba 
+## React + Vite + Boostrap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Formulario de prueba con la intención de practicar:
+* Ordenamiento de Carpetas
+* Creación de componentes personalizables.
+* Utilización de Props en los componentes.
+* Importación y exportación de componentes.
+* Diferenciación entre componentes y wrappers.
+* Manipulación de estados.
+* Utilización de clases de Boostrap.
+* Validaciones de formulario.
+* Presentación de mensajes de error.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
