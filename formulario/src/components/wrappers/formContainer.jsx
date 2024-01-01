@@ -1,10 +1,15 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import {Button} from '../ui/'
 import {Form} from "./";
 import {Alert} from '../ui/alert';
 
 export const FormContainer = ({children,className = ""}) => {
-    let [msg, setMsg] = useState([])
+    const [msg, setMsg] = useState([
+      "El campo Nombre no puede estar vacío." ,
+      "El campo DNI no puede estar vacío.",
+      "El campo Correo no puede estar vacío.",
+      "El campo Contraseña no puede estar vacío."
+    ])
     const [formSubmit, setFormSubmit] = useState(false)
     const [error, setError] = useState(false)
     const [user, setUser] = useState({
@@ -13,6 +18,13 @@ export const FormContainer = ({children,className = ""}) => {
       email: "",
       password: ""
     });
+
+  /*   useEffect(()=>{
+      const isMsgEmpty = !msg ? true : msg.every(mensaje => !mensaje) ? true : false ;
+      console.log("Efect: ",msg," Efecy: ",isMsgEmpty)
+      isMsgEmpty ? (setError(false),setFormSubmit(true)) : setError(true);
+    },[msg]); */
+    
    
     const style = `d-flex flex-column justify-content-center align-items-center ${className}`
 
@@ -35,10 +47,10 @@ export const FormContainer = ({children,className = ""}) => {
         const dni = !user.dni ? "El campo DNI no puede estar vacío." : "";
         const email = !user.email ? "El campo Correo no puede estar vacío." : "";
         const password = !user.password ? "El campo Contraseña no puede estar vacío." : "";
-            
-        setMsg(msg = [name,dni,email,password]);
-        const isMsgEmpty = !msg ? true : msg.every(mensaje => !mensaje) ? true : false ;
-        isMsgEmpty ? (setError(false),setFormSubmit(true)) : setError(true);
+       
+        setMsg([name,dni,email,password]);
+        (!name && !dni && !email && !password) ? (setError(false),setFormSubmit(true)) : setError(true);
+               
     }
  
     return (
