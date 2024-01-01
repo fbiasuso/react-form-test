@@ -12,6 +12,7 @@ export const FormContainer = ({children,className = ""}) => {
     ])
     const [formSubmit, setFormSubmit] = useState(false)
     const [error, setError] = useState(false)
+    const [transition, setTransition] = useState("transit0");
     const [user, setUser] = useState({
       name: "",
       dni: "",
@@ -19,21 +20,24 @@ export const FormContainer = ({children,className = ""}) => {
       password: ""
     });
 
-  /*   useEffect(()=>{
-      const isMsgEmpty = !msg ? true : msg.every(mensaje => !mensaje) ? true : false ;
+     useEffect(()=>{
+      /* const isMsgEmpty = !msg ? true : msg.every(mensaje => !mensaje) ? true : false ;
       console.log("Efect: ",msg," Efecy: ",isMsgEmpty)
-      isMsgEmpty ? (setError(false),setFormSubmit(true)) : setError(true);
-    },[msg]); */
+      isMsgEmpty ? (setError(false),setFormSubmit(true)) : setError(true); */
+            
+      (error || formSubmit) && setTransition("transit");
+      
+    },[error,formSubmit]);
     
    
     const style = `d-flex flex-column justify-content-center align-items-center ${className}`
-
+    
     if (formSubmit) {
       return <Alert 
                 id="successSubmit"
                 msg="Formulario enviado correctamente" 
                 type="success" 
-                className="d-flex align-items-center"
+                className={"d-flex align-items-center "+transition}
               />;
     }
   
@@ -49,21 +53,21 @@ export const FormContainer = ({children,className = ""}) => {
         const password = !user.password ? "El campo Contraseña no puede estar vacío." : "";
        
         setMsg([name,dni,email,password]);
-        (!name && !dni && !email && !password) ? (setError(false),setFormSubmit(true)) : setError(true);
-               
+        (!name && !dni && !email && !password) ? (setError(false),setTransition("transit0"),setFormSubmit(true)) : setError(true);
+              
     }
  
     return (
         <>
         <div className={style}>
-        {error && <Alert id="ErrorMsg" msg={msg} type="danger" className="d-flex align-items-center"/>}
-        <Form onsubmit={(event)=>event.preventDefault()}>
-            <input className="form-control mb-3" type="text" name="name" id="name" placeholder='Nombre' onBlur={(event)=>handleInputs(event)}/>
-            <input className="form-control mb-3" type="text" name="dni" id="dni" placeholder='DNI'onBlur={(event)=>handleInputs(event)}/>
-            <input className="form-control mb-3" type="text" name="email" id="email" placeholder='Correo' onBlur={(event)=>handleInputs(event)}/>
-            <input className="form-control mb-3" type="text" name="password" id="password" placeholder='Contraseña' onBlur={(event)=>handleInputs(event)}/>
-            <Button type="button" className="btn btn-primary w-50 align-self-center mt-2" name="Enviar" onclick={()=>validations()}/>
-        </Form>
+          {error && <Alert id="ErrorMsg" msg={msg} type="danger" className={"d-flex align-items-center "+transition}/>}
+          <Form onsubmit={(event)=>event.preventDefault()}>
+              <input className="form-control mb-3" type="text" name="name" id="name" placeholder='Nombre' onBlur={(event)=>handleInputs(event)}/>
+              <input className="form-control mb-3" type="text" name="dni" id="dni" placeholder='DNI'onBlur={(event)=>handleInputs(event)}/>
+              <input className="form-control mb-3" type="text" name="email" id="email" placeholder='Correo' onBlur={(event)=>handleInputs(event)}/>
+              <input className="form-control mb-3" type="text" name="password" id="password" placeholder='Contraseña' onBlur={(event)=>handleInputs(event)}/>
+              <Button type="button" className="btn btn-primary w-50 align-self-center mt-2" name="Enviar" onclick={()=>validations()}/>
+          </Form>
         </div>
         </>      
     );
